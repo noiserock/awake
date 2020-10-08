@@ -37,7 +37,7 @@ hs = include('lib/halfsecond')
 MusicUtil = require "musicutil"
 
 options = {}
-options.OUTPUT = {"audio", "midi", "audio + midi", "crow out 1+2", "crow ii JF"}
+options.OUTPUT = {"audio", "midi", "audio + midi", "crow out 1+2", "crow ii JF", "audio + crow out 1+2"}
 
 g = grid.connect()
 
@@ -162,6 +162,10 @@ function step()
           crow.output[2].execute()
         elseif params:get("output") == 5 then
           crow.ii.jf.play_note((note_num-60)/12,5)
+        elseif params:get("output") == 6 then
+          engine.hz(freq)
+          crow.output[1].volts = (note_num-60)/12
+          crow.output[2].execute()
         end
 
         -- MIDI out
